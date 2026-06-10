@@ -27,7 +27,7 @@
     min-height: 100vh;
   }
 
-  header { background: var(--red); color: #fff; padding: 0; }
+  header { background: var(--red); color: #fff; padding: 0; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(0,0,0,.2); }
   .header-inner {
     max-width: 1200px; margin: 0 auto;
     padding: 8px 20px 8px;
@@ -44,7 +44,6 @@
   .controls {
     background: var(--white);
     border-bottom: 2px solid var(--red);
-    position: sticky; top: 0; z-index: 100;
     box-shadow: 0 2px 8px rgba(0,0,0,.08);
   }
   .controls-inner {
@@ -145,7 +144,7 @@
     font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
     color: var(--red-dk); font-weight: 700; margin-bottom: 8px;
   }
-  .personnel-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+  .personnel-grid { display: flex; flex-wrap: wrap; gap: 6px; max-height: 300px; overflow-y: auto; }
   .person-chip {
     display: inline-flex; align-items: center; gap: 4px;
     background: var(--white); border: 1px solid var(--line);
