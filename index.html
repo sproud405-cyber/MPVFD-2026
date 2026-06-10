@@ -93,7 +93,14 @@
     max-width: 100%; overflow-x: hidden;
   }
   table { width: 100%; border-collapse: collapse; font-size: .85rem; table-layout: fixed; }
+  .col-inc   { width: 14%; }
+  .col-type  { width: 28%; }
+  .col-loc   { width: 20%; }
+  .col-date  { width: 14%; }
+  .col-units { width: 12%; }
+  .col-pers  { width: 12%; }
   thead { background: var(--gray); color: #fff; }
+  thead th { color: #fff !important; }
   th {
     padding: 11px 14px; text-align: left; font-weight: 600;
     font-size: .78rem; text-transform: uppercase; letter-spacing: .05em;
@@ -167,6 +174,10 @@
     .header-stats { display: none; }
     .detail-inner { grid-template-columns: 1fr; padding: 12px 12px; }
     .loc-cell, .date-cell { display: none; }
+    .col-inc   { width: 22%; }
+    .col-type  { width: 52%; }
+    .col-units { width: 13%; }
+    .col-pers  { width: 13%; }
   }
 
   /* ── PIN LOCK ── */
@@ -319,12 +330,20 @@
 <main>
   <div class="table-wrap">
     <table id="callTable">
+      <colgroup>
+        <col class="col-inc">
+        <col class="col-type">
+        <col class="col-loc loc-cell">
+        <col class="col-date date-cell">
+        <col class="col-units">
+        <col class="col-pers">
+      </colgroup>
       <thead>
         <tr>
           <th>Incident</th>
           <th>Type</th>
-          <th>Location</th>
-          <th>Date / Time</th>
+          <th class="loc-cell">Location</th>
+          <th class="date-cell">Date / Time</th>
           <th style="text-align:center">Units</th>
           <th style="text-align:center">Personnel</th>
         </tr>
