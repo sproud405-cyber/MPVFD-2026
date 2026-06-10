@@ -90,8 +90,9 @@
   .table-wrap {
     background: var(--white); border-radius: 10px;
     box-shadow: 0 1px 6px rgba(0,0,0,.07); overflow: hidden;
+    max-width: 100%; overflow-x: hidden;
   }
-  table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; table-layout: fixed; }
   thead { background: var(--gray); color: #fff; }
   th {
     padding: 11px 14px; text-align: left; font-weight: 600;
@@ -137,22 +138,23 @@
 
   .detail-row td { padding: 0; background: #FAFAFA; border-bottom: 2px solid var(--red); }
   .detail-inner {
-    padding: 14px 20px 16px;
+    padding: 14px 16px 16px;
     display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    box-sizing: border-box; width: 100%;
   }
   .detail-section h4 {
     font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
     color: var(--red-dk); font-weight: 700; margin-bottom: 8px;
   }
-  .personnel-grid { display: flex; flex-wrap: wrap; gap: 4px; }
+  .personnel-grid { display: flex; flex-wrap: wrap; gap: 4px; width: 100%; box-sizing: border-box; }
   .person-chip {
     display: flex; align-items: center;
     background: var(--white); border: 1px solid var(--line);
     border-radius: 20px; padding: 2px 8px; font-size: .68rem;
-    overflow: hidden; min-width: 0;
-    flex: 0 0 calc(50% - 2px); max-width: calc(50% - 2px);
+    overflow: hidden; min-width: 0; box-sizing: border-box;
+    flex: 0 1 calc(50% - 2px); max-width: calc(50% - 2px); width: calc(50% - 2px);
   }
-  .person-chip > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
+  .person-chip > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; display: block; }
   .person-chip.me { background: #FFF9C4; border-color: var(--badge-border); font-weight: 700; }
   .person-chip.apparatus-match { background: #E8F0FF; border-color: #93B4F0; font-weight: 700; }
   .chip-apparatus { font-size: .68rem; color: var(--mid); background: var(--line); padding: 1px 5px; border-radius: 10px; }
@@ -161,9 +163,9 @@
   .empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
   .empty-state p { font-size: .9rem; }
 
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
     .header-stats { display: none; }
-    .detail-inner { grid-template-columns: 1fr; padding: 12px 14px; }
+    .detail-inner { grid-template-columns: 1fr; padding: 12px 12px; }
     .loc-cell, .date-cell { display: none; }
   }
 
