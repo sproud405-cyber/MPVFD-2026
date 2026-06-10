@@ -144,12 +144,14 @@
     font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
     color: var(--red-dk); font-weight: 700; margin-bottom: 8px;
   }
-  .personnel-grid { display: flex; flex-wrap: wrap; gap: 6px; max-height: 300px; overflow-y: auto; }
+  .personnel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
   .person-chip {
-    display: inline-flex; align-items: center; gap: 4px;
+    display: flex; align-items: center; gap: 4px;
     background: var(--white); border: 1px solid var(--line);
     border-radius: 20px; padding: 3px 10px; font-size: .78rem;
+    overflow: hidden;
   }
+  .person-chip span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .person-chip.me { background: #FFF9C4; border-color: var(--badge-border); font-weight: 700; }
   .person-chip.apparatus-match { background: #E8F0FF; border-color: #93B4F0; font-weight: 700; }
   .chip-apparatus { font-size: .68rem; color: var(--mid); background: var(--line); padding: 1px 5px; border-radius: 10px; }
@@ -284,7 +286,7 @@
 
     <div class="filter-group">
       <label>Type</label>
-      <select id="typeFilter"><option value="">All Types</option></select>
+      <select id="typeFilter" style="max-width:140px"><option value="">All Types</option></select>
     </div>
 
     <div class="filter-group">
