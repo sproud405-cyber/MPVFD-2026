@@ -135,7 +135,7 @@
 
   .loc-cell  { color: var(--mid); font-size: .8rem; max-width: 200px; }
   .type-cell { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 0; }
-  .date-cell { white-space: nowrap; color: var(--mid); }
+  .date-cell { white-space: nowrap; color: var(--mid); min-width: 90px; }
   .units-cell, .pers-cell { text-align: center; font-weight: 600; }
 
   .name-badge {
@@ -179,9 +179,9 @@
     .col-pers  { width: 0; }
     .col-units { width: 0; }
     .col-inc   { width: 0; }
-    .col-date  { width: 22%; }
-    .col-loc   { width: 28%; }
-    .col-type  { width: 50%; }
+    .col-date  { width: 90px; }
+    .col-loc   { width: calc(35% - 45px); }
+    .col-type  { width: calc(65% - 45px); }
     .col-pers  { width: 0; }
     .col-units { width: 0; }
     .col-inc   { width: 0; }
