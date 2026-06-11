@@ -17,38 +17,32 @@
     --badge-bg: #FFF3CD;
     --badge-border: #FBBF24;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--gray); min-height: 100vh; }
 
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--gray);
-    min-height: 100vh;
+  /* ── HEADER (sticky) ── */
+  header {
+    background: var(--red); color: #fff; padding: 0;
+    position: sticky; top: 0; z-index: 200;
+    box-shadow: 0 2px 12px rgba(0,0,0,.2);
   }
-
-  header { background: var(--red); color: #fff; padding: 0; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 12px rgba(0,0,0,.2); }
   .header-inner {
-    max-width: 1200px; margin: 0 auto;
-    padding: 8px 20px 8px;
+    max-width: 1200px; margin: 0 auto; padding: 8px 20px;
     display: flex; align-items: center; gap: 16px;
   }
-  .badge-shield { width: 48px; height: 48px; flex-shrink: 0; }
   .header-text h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: .02em; line-height: 1.2; }
   .header-text p  { font-size: .82rem; opacity: .85; margin-top: 2px; }
   .header-stats { margin-left: auto; display: flex; gap: 24px; text-align: center; }
-  .stat-pill { line-height: 1.1; }
-  .stat-pill .num { font-size: 1.5rem; font-weight: 700; }
-  .stat-pill .lbl { font-size: .72rem; opacity: .8; text-transform: uppercase; letter-spacing: .05em; }
+  .stat-pill .num { font-size: 1.5rem; font-weight: 700; line-height: 1.1; }
+  .stat-pill .lbl { font-size: .68rem; opacity: .8; text-transform: uppercase; letter-spacing: .05em; }
 
+  /* ── CONTROLS (scrolls away) ── */
   .controls {
-    background: var(--white);
-    border-bottom: 2px solid var(--red);
+    background: var(--white); border-bottom: 2px solid var(--red);
     box-shadow: 0 2px 8px rgba(0,0,0,.08);
   }
   .controls-inner {
-    max-width: 1200px; margin: 0 auto;
-    padding: 12px 20px;
+    max-width: 1200px; margin: 0 auto; padding: 12px 20px;
     display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
   }
   .filter-group { display: flex; align-items: center; gap: 6px; }
@@ -65,7 +59,6 @@
   select:focus, input:focus { border-color: var(--red); }
   select { cursor: pointer; }
   .date-sep { font-size: .8rem; color: var(--mid); }
-
   .btn-reset {
     margin-left: auto; padding: 7px 16px;
     background: var(--red); color: #fff; border: none;
@@ -73,9 +66,9 @@
     cursor: pointer; transition: background .15s;
   }
   .btn-reset:hover { background: var(--red-dk); }
-
   .result-count { font-size: .8rem; color: var(--mid); white-space: nowrap; }
 
+  /* ── HIGHLIGHT BAR ── */
   .highlight-bar { display: none; max-width: 1200px; margin: 12px auto 0; padding: 0 20px; }
   .highlight-bar.visible { display: block; }
   .highlight-inner {
@@ -85,28 +78,31 @@
   }
   .highlight-inner strong { color: var(--red-dk); }
 
+  /* ── MAIN / TABLE ── */
   main { max-width: 1200px; margin: 0 auto; padding: 20px 20px 40px; }
-
   .table-wrap {
     background: var(--white); border-radius: 10px;
-    box-shadow: 0 1px 6px rgba(0,0,0,.07); overflow: hidden;
-    max-width: 100%; overflow-x: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,.07);
+    overflow: hidden; max-width: 100%;
   }
   table { width: 100%; border-collapse: collapse; font-size: .85rem; table-layout: fixed; }
-  .col-inc   { width: 14%; }
+
+  /* Column widths — order: date, loc, type, pers, units, inc */
+  .col-date  { width: 13%; }
+  .col-loc   { width: 21%; }
   .col-type  { width: 28%; }
-  .col-loc   { width: 20%; }
-  .col-date  { width: 14%; }
-  .col-units { width: 12%; }
-  .col-pers  { width: 12%; }
+  .col-pers  { width: 11%; }
+  .col-units { width: 9%; }
+  .col-inc   { width: 18%; }
+
   thead { background: var(--gray); color: #fff; }
   thead th { color: #fff !important; }
   th {
-    padding: 11px 14px; text-align: left; font-weight: 600;
+    padding: 11px 12px; text-align: left; font-weight: 600;
     font-size: .78rem; text-transform: uppercase; letter-spacing: .05em;
     white-space: nowrap; user-select: none;
+    overflow: hidden; text-overflow: ellipsis;
   }
-
   tbody tr {
     border-bottom: 1px solid var(--line);
     transition: background .1s; cursor: pointer;
@@ -114,30 +110,29 @@
   tbody tr:hover { background: #FFF8F8; }
   tbody tr.my-call { background: #FFFBEA; }
   tbody tr.my-call:hover { background: #FFF5CC; }
-  tbody tr.expanded { background: #FFF8F8; }
 
-  td { padding: 10px 14px; vertical-align: top; }
+  td { padding: 10px 12px; vertical-align: top; overflow: hidden; }
 
   .inc-num { font-weight: 700; color: var(--red); font-size: .9rem; white-space: nowrap; }
+  .type-cell { white-space: nowrap; text-overflow: ellipsis; }
   .type-badge {
-    display: inline-block; padding: 2px 8px; border-radius: 4px;
-    font-size: .75rem; font-weight: 600; white-space: nowrap;
+    display: inline-block; padding: 2px 7px; border-radius: 4px;
+    font-size: .72rem; font-weight: 600; white-space: nowrap;
     overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+    vertical-align: middle;
   }
-  .type-badge.fire    { background: #FFE8E8; color: #7F1D1D; }
-  .type-badge.mva     { background: #E8F0FF; color: #1E3A8A; }
-  .type-badge.alarm   { background: #F0F0F0; color: #374151; }
-  .type-badge.hazmat  { background: #FFF3E0; color: #7C3C00; }
-  .type-badge.gas     { background: #FFFDE7; color: #6B5000; }
-  .type-badge.grass   { background: #E8F5E9; color: #1B5E20; }
-  .type-badge.elec    { background: #EDE7F6; color: #311B92; }
-  .type-badge.other   { background: #F5F5F5; color: #424242; }
+  .type-badge.fire   { background: #FFE8E8; color: #7F1D1D; }
+  .type-badge.mva    { background: #E8F0FF; color: #1E3A8A; }
+  .type-badge.alarm  { background: #F0F0F0; color: #374151; }
+  .type-badge.hazmat { background: #FFF3E0; color: #7C3C00; }
+  .type-badge.gas    { background: #FFFDE7; color: #6B5000; }
+  .type-badge.grass  { background: #E8F5E9; color: #1B5E20; }
+  .type-badge.elec   { background: #EDE7F6; color: #311B92; }
+  .type-badge.other  { background: #F5F5F5; color: #424242; }
 
-  .loc-cell  { color: var(--mid); font-size: .8rem; max-width: 200px; }
-  .type-cell { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 0; }
-  .date-cell { white-space: nowrap; color: var(--mid); min-width: 90px; }
+  .loc-cell  { color: var(--mid); font-size: .8rem; overflow: hidden; text-overflow: ellipsis; }
+  .date-cell { white-space: nowrap; color: var(--mid); }
   .units-cell, .pers-cell { text-align: center; font-weight: 600; }
-
   .name-badge {
     display: inline-block; background: var(--red); color: #fff;
     font-size: .68rem; font-weight: 700; padding: 2px 7px;
@@ -145,46 +140,59 @@
     white-space: nowrap;
   }
 
-  .detail-row td { padding: 0; background: #FAFAFA; border-bottom: 2px solid var(--red); }
+  /* ── EXPANDED DETAIL ── */
+  .detail-row td {
+    padding: 0; background: #FAFAFA; border-bottom: 2px solid var(--red);
+    width: 100% !important; max-width: none !important;
+  }
   .detail-inner {
     padding: 14px 16px 16px;
     display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-    box-sizing: border-box; width: 100%;
+    width: 100%;
   }
+  .detail-section { min-width: 0; }
   .detail-section h4 {
     font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
     color: var(--red-dk); font-weight: 700; margin-bottom: 8px;
   }
-  .personnel-grid { display: flex; flex-wrap: wrap; gap: 4px; width: 100%; box-sizing: border-box; }
+  .detail-section p { font-size: .85rem; margin-bottom: 10px; }
+  .personnel-grid { display: flex; flex-wrap: wrap; gap: 4px; width: 100%; }
   .person-chip {
     display: flex; align-items: center;
     background: var(--white); border: 1px solid var(--line);
     border-radius: 20px; padding: 2px 8px; font-size: .68rem;
-    overflow: hidden; min-width: 0; box-sizing: border-box;
-    flex: 0 1 calc(50% - 2px); max-width: calc(50% - 2px); width: calc(50% - 2px);
+    overflow: hidden; min-width: 0;
+    flex: 0 1 calc(50% - 2px); max-width: calc(50% - 2px);
   }
-  .person-chip > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; display: block; }
+  .person-chip > span {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    min-width: 0; flex: 1; display: block;
+  }
   .person-chip.me { background: #FFF9C4; border-color: var(--badge-border); font-weight: 700; }
   .person-chip.apparatus-match { background: #E8F0FF; border-color: #93B4F0; font-weight: 700; }
-  .chip-apparatus { font-size: .68rem; color: var(--mid); background: var(--line); padding: 1px 5px; border-radius: 10px; }
 
+  /* ── EMPTY STATE ── */
   .empty-state { text-align: center; padding: 60px 20px; color: var(--mid); }
   .empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
   .empty-state p { font-size: .9rem; }
 
+  /* ── MOBILE ── */
   @media (max-width: 900px) {
     .header-stats { display: none; }
     .detail-inner { grid-template-columns: 1fr; padding: 12px 12px; }
-    .pers-cell-col, .units-cell-col, .inc-cell-col { display: none; }
-    .col-pers  { width: 0; }
-    .col-units { width: 0; }
-    .col-inc   { width: 0; }
-    .col-date  { width: 90px; }
-    .col-loc   { width: calc(35% - 45px); }
-    .col-type  { width: calc(65% - 45px); }
-    .col-pers  { width: 0; }
-    .col-units { width: 0; }
-    .col-inc   { width: 0; }
+    th, td { padding-left: 8px; padding-right: 8px; }
+    /* Collapse pers/units/inc without breaking fixed-table column mapping:
+       width:0 on cols + zero out the cells visually. Cells stay in the DOM
+       so header/body columns always align and thead spans full width. */
+    .col-pers, .col-units, .col-inc { width: 0; }
+    .pers-cell-col, .units-cell-col, .inc-cell-col {
+      padding: 0 !important; font-size: 0 !important;
+      line-height: 0 !important; overflow: hidden;
+      border: none; white-space: nowrap;
+    }
+    .col-date { width: 24%; }
+    .col-loc  { width: 32%; }
+    .col-type { width: 44%; }
   }
 
   /* ── PIN LOCK ── */
@@ -193,7 +201,6 @@
     background: var(--red);
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    gap: 0;
   }
   .pin-screen.hidden { display: none; }
   .pin-card {
@@ -207,14 +214,9 @@
     margin: 0 auto 18px; display: flex; align-items: center; justify-content: center;
   }
   .pin-logo img { width: 100%; height: 100%; object-fit: cover; }
-  .pin-card h2 {
-    font-size: 1.1rem; font-weight: 700; color: var(--gray);
-    margin-bottom: 4px;
-  }
-  .pin-card p { font-size: .8rem; color: var(--mid); margin-bottom: 24px; }
-  .pin-dots {
-    display: flex; justify-content: center; gap: 12px; margin-bottom: 24px;
-  }
+  .pin-card h2 { font-size: 1.1rem; font-weight: 700; color: var(--gray); margin-bottom: 4px; }
+  .pin-card p  { font-size: .8rem; color: var(--mid); margin-bottom: 24px; }
+  .pin-dots { display: flex; justify-content: center; gap: 12px; margin-bottom: 24px; }
   .pin-dot {
     width: 14px; height: 14px; border-radius: 50%;
     border: 2px solid var(--line); background: transparent;
@@ -222,9 +224,7 @@
   }
   .pin-dot.filled { background: var(--red); border-color: var(--red); }
   .pin-dot.error  { background: #FF4444; border-color: #FF4444; }
-  .pin-keypad {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-  }
+  .pin-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .pin-key {
     padding: 14px; border: 1.5px solid var(--line); border-radius: 10px;
     font-size: 1.1rem; font-weight: 600; background: var(--white);
@@ -234,10 +234,7 @@
   .pin-key:hover  { background: var(--red-lt); border-color: var(--red); }
   .pin-key:active { background: var(--red); color: #fff; }
   .pin-key.clear  { font-size: .8rem; color: var(--mid); }
-  .pin-error {
-    margin-top: 14px; font-size: .8rem; color: #CC0000;
-    min-height: 18px; font-weight: 600;
-  }
+  .pin-error { margin-top: 14px; font-size: .8rem; color: #CC0000; min-height: 18px; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -338,12 +335,12 @@
   <div class="table-wrap">
     <table id="callTable">
       <colgroup>
-        <col class="col-date date-cell">
-        <col class="col-loc loc-cell">
+        <col class="col-date">
+        <col class="col-loc">
         <col class="col-type">
-        <col class="col-pers pers-cell-col">
-        <col class="col-units units-cell-col">
-        <col class="col-inc inc-cell-col">
+        <col class="col-pers">
+        <col class="col-units">
+        <col class="col-inc">
       </colgroup>
       <thead>
         <tr>
