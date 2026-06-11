@@ -122,6 +122,7 @@
   .type-badge {
     display: inline-block; padding: 2px 8px; border-radius: 4px;
     font-size: .75rem; font-weight: 600; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; max-width: 100%;
   }
   .type-badge.fire    { background: #FFE8E8; color: #7F1D1D; }
   .type-badge.mva     { background: #E8F0FF; color: #1E3A8A; }
@@ -133,6 +134,7 @@
   .type-badge.other   { background: #F5F5F5; color: #424242; }
 
   .loc-cell  { color: var(--mid); font-size: .8rem; max-width: 200px; }
+  .type-cell { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 0; }
   .date-cell { white-space: nowrap; color: var(--mid); }
   .units-cell, .pers-cell { text-align: center; font-weight: 600; }
 
@@ -173,11 +175,16 @@
   @media (max-width: 900px) {
     .header-stats { display: none; }
     .detail-inner { grid-template-columns: 1fr; padding: 12px 12px; }
-    .loc-cell, .date-cell { display: none; }
-    .col-inc   { width: 22%; }
-    .col-type  { width: 52%; }
-    .col-units { width: 13%; }
-    .col-pers  { width: 13%; }
+    .pers-cell-col, .units-cell-col, .inc-cell-col { display: none; }
+    .col-pers  { width: 0; }
+    .col-units { width: 0; }
+    .col-inc   { width: 0; }
+    .col-date  { width: 22%; }
+    .col-loc   { width: 28%; }
+    .col-type  { width: 50%; }
+    .col-pers  { width: 0; }
+    .col-units { width: 0; }
+    .col-inc   { width: 0; }
   }
 
   /* ── PIN LOCK ── */
@@ -331,21 +338,21 @@
   <div class="table-wrap">
     <table id="callTable">
       <colgroup>
-        <col class="col-inc">
-        <col class="col-type">
-        <col class="col-loc loc-cell">
         <col class="col-date date-cell">
-        <col class="col-units">
-        <col class="col-pers">
+        <col class="col-loc loc-cell">
+        <col class="col-type">
+        <col class="col-pers pers-cell-col">
+        <col class="col-units units-cell-col">
+        <col class="col-inc inc-cell-col">
       </colgroup>
       <thead>
         <tr>
-          <th>Incident</th>
-          <th>Type</th>
-          <th class="loc-cell">Location</th>
           <th class="date-cell">Date / Time</th>
-          <th style="text-align:center">Units</th>
-          <th style="text-align:center">Personnel</th>
+          <th class="loc-cell">Location</th>
+          <th>Type</th>
+          <th class="pers-cell-col" style="text-align:center">Personnel</th>
+          <th class="units-cell-col" style="text-align:center">Units</th>
+          <th class="inc-cell-col">Incident</th>
         </tr>
       </thead>
       <tbody id="tableBody"></tbody>
@@ -529,12 +536,12 @@ function render() {
     }
 
     tr.innerHTML = `
-      <td><span class="inc-num">${d["Incident Number"]}</span>${badge}</td>
-      <td><span class="type-badge ${typeBadgeClass(d["Incident Type"])}">${d["Incident Type"]}</span></td>
-      <td class="loc-cell">${d["Location"].replace(/, USA$/, '')}</td>
       <td class="date-cell">${d._dispStr}<br><span style="font-size:.75rem;color:#888">${d._timeStr}</span></td>
-      <td class="units-cell">${d._units}</td>
-      <td class="pers-cell">${d._pers}</td>
+      <td class="loc-cell">${d["Location"].replace(/, USA$/, '')}</td>
+      <td class="type-cell"><span class="type-badge ${typeBadgeClass(d["Incident Type"])}">${d["Incident Type"]}</span></td>
+      <td class="pers-cell pers-cell-col" style="text-align:center">${d._pers}</td>
+      <td class="units-cell units-cell-col" style="text-align:center">${d._units}</td>
+      <td class="inc-cell-col"><span class="inc-num">${d["Incident Number"]}</span>${badge}</td>
     `;
     tr.addEventListener('click', () => {
       expandedInc = expandedInc === d["Incident Number"] ? null : d["Incident Number"];
